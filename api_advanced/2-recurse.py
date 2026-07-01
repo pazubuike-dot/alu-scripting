@@ -17,15 +17,15 @@ def recurse(subreddit, hot_list=[], after=None):
     params = {"after": after, "limit": 100}
 
     try:
-        response = requests.get(url, headers=headers, params=params,
-                                allow_redirects=False)
+        response = requests.get(
+            url, headers=headers, params=params, allow_redirects=False
+        )
         if response.status_code != 200:
             return None
 
         data = response.json().get("data", {})
         children = data.get("children", [])
-        
-        # Copy elements into an isolated list to avoid persistent mutable defaults issues
+
         if after is None:
             hot_list = []
 
@@ -35,7 +35,7 @@ def recurse(subreddit, hot_list=[], after=None):
         next_page = data.get("after")
         if next_page is not None:
             return recurse(subreddit, hot_list, next_page)
-        
+
         return hot_list if len(hot_list) > 0 else None
     except Exception:
         return None
