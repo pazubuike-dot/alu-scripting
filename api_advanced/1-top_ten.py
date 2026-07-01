@@ -22,7 +22,14 @@ def top_ten(subreddit):
         if response.status_code == 200:
             data = response.json()
             children = data.get("data", {}).get("children", [])
-            for post in children:
+            if not children:
+                print(None)
+                return
+            
+            # Print a maximum of 10 post titles
+            for i, post in enumerate(children):
+                if i >= 10:
+                    break
                 print(post.get("data", {}).get("title"))
         else:
             print(None)
