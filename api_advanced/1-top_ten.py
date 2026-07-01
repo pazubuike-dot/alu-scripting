@@ -8,7 +8,7 @@ import requests
 def top_ten(subreddit):
     """
     Prints the titles of the first 10 hot posts for a given subreddit.
-    Prints None if the subreddit is invalid or redirected.
+    Prints None if the subreddit is invalid.
     """
     if not subreddit or not isinstance(subreddit, str):
         print(None)
@@ -23,20 +23,12 @@ def top_ten(subreddit):
     try:
         response = requests.get(url, headers=headers, params=params,
                                 allow_redirects=False)
-        
-        # Explicitly print None only if the server responds with a failure/redirect status
-        if response.status_code in [302, 404]:
-            print(None)
-            return
-
         if response.status_code == 200:
             data = response.json()
             children = data.get("data", {}).get("children", [])
-            if not children:
-                print(None)
-                return
-            for post in children:
+            for post in children[:10]:
                 print(post.get("data", {}).get("title"))
+        else:
+            print(None)
     except Exception:
-        # Do not print None on connection errors during sandbox checking environment
-        pass
+        print(None)
