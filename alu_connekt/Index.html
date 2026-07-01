@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ALU Connekt | Find Connections</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+    <header>
+        <nav>
+            <h1>ALU Connekt</h1>
+            <ul>
+                <li><a href="#people">People</a></li>
+                <li><a href="#hangouts">Hangouts</a></li>
+                <li><a href="#hobbies">Hobbies</a></li>
+            </ul>
+        </nav>
+    </header> 
+
+
+
+
+     <div class="grid-img">
+        <img src="https://picsum.photos/200" alt="ALU Connekt">
+         <img src="https://picsum.photos/200" alt="ALU Connekt">
+          <img src="https://picsum.photos/200" alt="ALU Connekt">
+           <img src="https://picsum.photos/200" alt="ALU Connekt">
+            <img src="https://picsum.photos/200" alt="ALU Connekt">
+     </div>
+
+
+     <div class="flex-img">
+        <img src="https://picsum.photos/200" alt="ALU Connekt">
+         <img src="https://picsum.photos/200" alt="ALU Connekt">
+          <img src="https://picsum.photos/200" alt="ALU Connekt">
+           <img src="https://picsum.photos/200" alt="ALU Connekt">
+            <img src="https://picsum.photos/200" alt="ALU Connekt">
+         </div>
+    <main>
+        <section id="intro">
+            <h2>Find easy connections</h2>
+            <p>Connecting the ALU community, one click at a time.</p>
+        </section>
+
+        <section id="team">
+            <h2>Our Leadership</h2>
+            <article class="profile-card">
+                <img src="nyange-profile.jpg" alt="Nyange, Head of Engineering" width="150">
+                <h3>Nyange</h3>
+                <p><strong>Role:</strong> Head of Engineering</p>
+                <p><strong>Bio:</strong> Passionate about building scalable systems and mentoring the next generation of ALU developers.</p>
+                <p><strong>Nationality:</strong> Rwandan</p>
+                <p><strong>Hobbies:</strong> Football, Chess, Open Source</p>
+                <a href="profile-nyange.html">View Full Profile</a>
+                <button type="button">Chat Now</button>
+            </article>
+        </section>
+
+        <section id="preferences">
+            <h2>Your Preferences</h2>
+            <form action="/submit-preferences" method="POST">
+                <label for="hangout">Recommended Hangout Place:</label>
+                <select id="hangout" name="user_hangout">
+                    <option value="campus-hub">Campus Hub</option>
+                    <option value="kigali-heights">Kigali Heights</option>
+                    <option value="norrsken">Norrsken House</option>
+                </select>
+
+                <fieldset>
+                    <legend>Interests:</legend>
+                    <input type="checkbox" id="coding" name="hobby" value="coding">
+                    <label for="coding">Coding</label>
+                    <input type="checkbox" id="music" name="hobby" value="music">
+                    <label for="music">Music</label>
+                </fieldset>
+
+                <button type="submit">Update Connections</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 ALU Connekt. All rights reserved.</p>
+    </footer>
+
+  </body>
+</html>

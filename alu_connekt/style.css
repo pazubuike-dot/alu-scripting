@@ -1,0 +1,16 @@
+.grid-img{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr );
+}
+
+.flex-img{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: calc(20%);
+}
+
+img{
+    margin: 10px 10px;
+}
+
