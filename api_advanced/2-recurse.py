@@ -1,41 +1,44 @@
 #!/usr/bin/python3
-"""
-Queries the Reddit API recursively to return a list of all hot post titles.
-"""
+"""Script that fetch all hot post for a given subreddit with recursive call."""
+
 import requests
 
+headers = {'User-Agent': 'MyAPI/0.0.1'}
 
-def recurse(subreddit, hot_list=[], after=None):
-    """
-    Recursively pulls all hot article titles for a subreddit.
-    Returns None if the subreddit is invalid.
-    """
-    url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    headers = {
-        "User-Agent": "linux:api.advanced.script:v1.0.0 (by /u/pazubuike-dot)"
-    }
-    params = {"after": after, "limit": 100}
 
-    try:
-        response = requests.get(
-            url, headers=headers, params=params, allow_redirects=False
-        )
-        if response.status_code != 200:
-            return None
+def recurse(subreddit, after="", hot_list=[], page_counter=0):
+    """Return all hot posts in a subreddit."""
 
-        data = response.json().get("data", {})
-        children = data.get("children", [])
+    subreddit_url = "https://reddit.com/r/{}/hot.json".format(subreddit)
 
-        if after is None:
-            hot_list = []
+    parameters = {'limit': 100, 'after': after}
+    response = requests.get(subreddit_url, headers=headers, params=parameters)
 
-        for post in children:
-            hot_list.append(post.get("data", {}).get("title"))
+    if response.status_code == 200:
+        json_data = response.json()
+        # get the 'after' value from the response to pass it on the request
 
-        next_page = data.get("after")
-        if next_page is not None:
-            return recurse(subreddit, hot_list, next_page)
+        # get title and append it to the hot_list
+        for child in json_data.get('data').get('children'):
+            title = child.get('data').get('title')
+            hot_list.append(title)
 
-        return hot_list if len(hot_list) > 0 else None
-    except Exception:
+        # variable after indicates if there is data on the next pagination
+        # on the reddit API after holds a unique name for that subreddit page.
+        # if it is None it indicates it is the last page.
+        after = json_data.get('data').get('after')
+        if after is not None:
+
+            page_counter += 1
+            # print(len(hot_list))
+            return recurse(subreddit, after=after,
+                           hot_list=hot_list, page_counter=page_counter)
+        else:
+            return hot_list
+
+    else:
         return None
+
+
+if __name__ == '__main__':
+    print(recurse("zerowastecz"))
